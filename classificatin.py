@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from dataset import prediction_dataset, finetune_collater
@@ -9,7 +8,7 @@ from model import PredictionModel
 import argparse
 
 
-def main(seed):
+def main():
     bert_large_config = {'name': 'Large', 'num_layers': 12, 'num_heads': 12, 'd_model': 512, 'path': 'large_weights'}
     config = bert_large_config
     trained_epoch = 10
@@ -18,8 +17,6 @@ def main(seed):
     d_model = config['d_model']
     dff = d_model * 2
     vocab_size = 60
-    seed = seed
-    np.random.seed(seed=seed)
 
     dfs = []
     columns = set()
@@ -225,4 +222,5 @@ if __name__ == '__main__':
     parser.add_argument('--clf-heads', nargs='+', default=[], type=str)
     parser.add_argument('--reg-heads', nargs='+', default=['logD'], type=list)
     args = parser.parse_args()
-    main(43)
+    main()
+
